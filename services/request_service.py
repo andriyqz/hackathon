@@ -1,8 +1,11 @@
 from models import Request
 from models.enums import RequestStatus
 from sqlalchemy.orm import Session
-from repositories.request_repository import RequestRepository
 
+from repositories.request_repository import RequestRepository
+from repositories.filters import BaseFilter
+
+from typing import List
 
 class RequestService:
     
@@ -23,7 +26,8 @@ class RequestService:
 
         return request
 
-    def get_new_requests(self):
-        return self.__request_repo.get_by_status(status=RequestStatus.NEW)
+    def get_requests(self, filters: List[BaseFilter]):
+        return self.__request_repo.get(filters=filters)
     
+
     
