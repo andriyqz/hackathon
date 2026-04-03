@@ -1,10 +1,11 @@
 from fastapi import APIRouter, Depends, Query
 from fastapi import Body
+
 from sqlalchemy.orm import Session
 
 from typing import List, Optional
 
-from repositories.filters import BaseFilter, EqualsFilter, GreaterThanFilter, LessThanFilter
+from repositories.filters import BaseFilter, EqualsFilter, GreaterThanFilter, LessThanFilter, apply_filters
 from services.request_service import RequestService
 from schemas.request import RequestCreate, RequestResponse, RequestStatus
 from models.enums import Priority
