@@ -1,13 +1,18 @@
-from fastapi import FastAPI, routing
-
+import uvicorn
+from fastapi import FastAPI
+from api.api import api_router
+from db.session import init_db
 
 app = FastAPI()
 
-@app.get('/')
-def index():
-    return {'hello': 'world'}
+app.include_router(api_router, prefix='/api')
+
+init_db()
+
+@app.get("/")
+def root():
+    return {"message": "API is running. Go to /docs for Swagger UI"}
 
 
-@app.get("/items/{item_id}")
-def read_item(item_id: int, q: str | None = None):
-    return {"item_id": item_id, "q": q}
+if __name__ == "__main__":
+    uvicorn.run("main:app", host="0.0.0.0", port=8000, reload=True)

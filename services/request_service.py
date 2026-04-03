@@ -13,12 +13,15 @@ class RequestService:
     def create_request(self, user_id: int, data):
         request = Request(
             created_by=user_id,
-            to_location=data.from_location,
+            to_location=data.to_location,
             description=data.description,
-            status=RequestStatus.NEW
+            status=RequestStatus.NEW,
+            priority=data.priority
         )
 
         self.__request_repo.create(request=request)
+
+        return request
 
     def get_new_requests(self):
         return self.__request_repo.get_by_status(status=RequestStatus.NEW)

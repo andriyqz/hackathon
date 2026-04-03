@@ -13,7 +13,7 @@ class RequestRepository:
         self.db.refresh(request)
         return request
     
-    def get_by_id(self, request_id: int):
+    def get(self):
         return self.db.query(Request).filter(
             Request.id == request_id
         ).first()
